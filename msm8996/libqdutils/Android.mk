@@ -17,6 +17,7 @@ LOCAL_SRC_FILES               := profiler.cpp \
                                  display_config.cpp
 include $(BUILD_SHARED_LIBRARY)
 
+ifeq ($(TARGET_COMPILE_WITHOUT_QCOM_DISPLAY_COMMONSYS),true)
 include $(CLEAR_VARS)
 
 LOCAL_EXPORT_C_INCLUDE_DIRS   := $(LOCAL_PATH)
@@ -32,4 +33,4 @@ LOCAL_MODULE_TAGS               := optional
 LOCAL_MODULE                    := libqdMetaData
 LOCAL_PROPRIETARY_MODULE        := true
 include $(BUILD_SHARED_LIBRARY)
-
+endif
