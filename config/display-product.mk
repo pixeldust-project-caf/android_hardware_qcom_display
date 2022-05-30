@@ -37,7 +37,7 @@ PRODUCT_PACKAGES += \
     init.qti.display_boot.sh \
     init.qti.display_boot.rc \
     modetest \
-    libmemutils
+    vndservicemanager
 
 ifneq ($(TARGET_HAS_LOW_RAM),true)
 #QDCM calibration xml file for 2k panel
@@ -196,6 +196,18 @@ else
     PRODUCT_PROPERTY_OVERRIDES += \
         vendor.display.enable_early_wakeup=1
     PRODUCT_SOONG_NAMESPACES += hardware/qcom/display
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/composer
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/gpu_tonemapper
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/hdmi_cec
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/libdrmutils
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/libhistogram
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/liblight
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/libmemtrack
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/libqdutils
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/libqservice
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/sde-drm
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/sdm/libs/core
+    PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/sdm/libs/utils
 endif
 
 #Modules that will be added in QMAA/Non-QMAA paths
