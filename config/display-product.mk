@@ -94,6 +94,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.comp_mask=0 \
     vendor.display.enable_optimize_refresh=1 \
     vendor.display.use_smooth_motion=1 \
+    vendor.display.enable_early_wakeup=1 \
     debug.sf.enable_advanced_sf_phase_offset=1 \
     debug.sf.high_fps_late_sf_phase_offset_ns=-4000000 \
     debug.sf.high_fps_early_phase_offset_ns=-4000000 \
@@ -164,9 +165,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 endif
 
 ifeq ($(TARGET_USES_QMAA),true)
-    ifneq ($(TARGET_USES_QMAA_OVERRIDE_DISPLAY),true)
-        #QMAA Mode is enabled
-        TARGET_IS_HEADLESS := true
+    ifeq ($(TARGET_USES_QMAA_OVERRIDE_DISPLAY),true)
+        #Modules that shouldn't be enabled in QMAA go here
+        PRODUCT_PACKAGES += libdrmutils
+        PRODUCT_PACKAGES += libsdedrm
+        PRODUCT_PACKAGES += libgpu_tonemapper
+    else
+    TARGET_IS_HEADLESS := true
     endif
 endif
 
@@ -188,13 +193,6 @@ ifeq ($(TARGET_IS_HEADLESS), true)
     SOONG_CONFIG_qtidisplay_headless := true
     SOONG_CONFIG_qtidisplay_default := false
 else
-    #Packages that should not be installed in QMAA are enabled here.
-    PRODUCT_PACKAGES += libdrmutils
-    PRODUCT_PACKAGES += libsdedrm
-    PRODUCT_PACKAGES += libgpu_tonemapper
-    #Properties that should not be set in QMAA are enabled here.
-    PRODUCT_PROPERTY_OVERRIDES += \
-        vendor.display.enable_early_wakeup=1
     PRODUCT_SOONG_NAMESPACES += hardware/qcom/display
     PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/composer
     PRODUCT_SOONG_NAMESPACES += hardware/qcom/display/gpu_tonemapper
