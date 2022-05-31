@@ -1,5 +1,6 @@
 soong_namespace {
-
+  imports: ["vendor/qcom/opensource/commonsys-intf/display",],
+}
 
 soong_config_module_type {
     name: "qtidisplay_cc_defaults",
@@ -87,9 +88,7 @@ cc_library_headers {
         "libdrmutils",
         "libqdutils",
         "libqservice",
-        "gpu_tonemapper",
         "sdm/include",
-        "gralloc",
         "libhistogram",
     ],
     header_libs: [
